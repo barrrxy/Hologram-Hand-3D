@@ -1,0 +1,639 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#020814" />
+  <meta name="description" content="NOVAIX STUDIO — ruang kreasi hologram dan interaksi tangan futuristik." />
+
+  <title>HOLO HAND STUDIO | NOVAIX STUDIO</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    :root {
+      --novaix-cyan: #54edff;
+      --novaix-blue: #438aff;
+      --novaix-purple: #a879ff;
+      --novaix-bg: #020814;
+      --novaix-text: #f1f7ff;
+      --novaix-muted: #899bb9;
+    }
+
+    /* Halaman dapat di-scroll tanpa mengubah area aplikasi. */
+    html {
+      min-height: 100%;
+      height: auto;
+      overflow-x: hidden;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+      background: var(--novaix-bg);
+    }
+
+    body {
+      min-height: 100%;
+      height: auto;
+      margin: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      background: var(--novaix-bg);
+    }
+
+    #app {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      min-height: 100vh;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    /* ========================================
+       NOVAIX STUDIO — BRAND IDENTITY
+       ======================================== */
+
+    #novaix-studio {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      padding: 66px 20px 26px;
+      color: var(--novaix-text);
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(44, 107, 218, .18), transparent 52%),
+        radial-gradient(ellipse at 0% 55%, rgba(93, 54, 190, .10), transparent 38%),
+        radial-gradient(ellipse at 100% 75%, rgba(30, 170, 255, .08), transparent 40%),
+        linear-gradient(180deg, #030a19 0%, #050817 55%, #020611 100%);
+      border-top: 1px solid rgba(84, 237, 255, .22);
+    }
+
+    #novaix-studio::before,
+    #novaix-studio::after {
+      position: absolute;
+      z-index: -1;
+      content: "";
+      pointer-events: none;
+      border-radius: 50%;
+    }
+
+    #novaix-studio::before {
+      top: 40px;
+      left: -130px;
+      width: 280px;
+      height: 280px;
+      border: 1px solid rgba(84, 237, 255, .10);
+      box-shadow:
+        0 0 70px rgba(67, 138, 255, .07),
+        inset 0 0 60px rgba(67, 138, 255, .04);
+    }
+
+    #novaix-studio::after {
+      right: -145px;
+      bottom: 100px;
+      width: 300px;
+      height: 300px;
+      border: 1px solid rgba(168, 121, 255, .12);
+      box-shadow: 0 0 80px rgba(128, 78, 255, .07);
+    }
+
+    .novaix-container {
+      width: min(100%, 760px);
+      margin: 0 auto;
+    }
+
+    .novaix-divider {
+      width: 76px;
+      height: 3px;
+      margin: 0 auto 34px;
+      border-radius: 10px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        var(--novaix-cyan),
+        var(--novaix-purple),
+        transparent
+      );
+      box-shadow: 0 0 18px rgba(84, 237, 255, .35);
+    }
+
+    .novaix-logo-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Logo utama */
+    .novaix-emblem {
+      position: relative;
+      display: grid;
+      width: 138px;
+      height: 138px;
+      place-items: center;
+      margin: 0 auto 23px;
+      isolation: isolate;
+      filter: drop-shadow(0 0 18px rgba(67, 138, 255, .17));
+    }
+
+    .novaix-emblem::before {
+      position: absolute;
+      inset: 22px;
+      z-index: -1;
+      content: "";
+      border: 1px solid rgba(84, 237, 255, .55);
+      border-radius: 24px;
+      background:
+        linear-gradient(145deg, rgba(47, 132, 255, .14), rgba(133, 80, 255, .07)),
+        rgba(3, 12, 29, .88);
+      box-shadow:
+        0 0 18px rgba(84, 237, 255, .13),
+        inset 0 0 22px rgba(63, 139, 255, .09);
+      transform: rotate(45deg);
+    }
+
+    .novaix-emblem::after {
+      position: absolute;
+      inset: 31px;
+      z-index: -1;
+      content: "";
+      border: 1px solid rgba(168, 121, 255, .52);
+      border-radius: 17px;
+      transform: rotate(45deg);
+    }
+
+    .novaix-orbit {
+      position: absolute;
+      width: 104px;
+      height: 104px;
+      border: 1px solid rgba(84, 237, 255, .8);
+      border-radius: 50%;
+      transform: rotate(-28deg) scaleY(.42);
+      box-shadow: 0 0 11px rgba(84, 237, 255, .13);
+      pointer-events: none;
+    }
+
+    .novaix-orbit.orbit-two {
+      width: 118px;
+      height: 118px;
+      border-color: rgba(168, 121, 255, .76);
+      transform: rotate(55deg) scaleY(.43);
+    }
+
+    .novaix-orbit.orbit-three {
+      width: 92px;
+      height: 92px;
+      border-color: rgba(84, 237, 255, .35);
+      transform: rotate(0deg) scaleY(.94);
+    }
+
+    .novaix-star {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      width: 53px;
+      height: 57px;
+      place-items: center;
+      color: #f4fdff;
+      font-family: "Orbitron", sans-serif;
+      font-size: 47px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -5px;
+      text-indent: -5px;
+      background: linear-gradient(
+        145deg,
+        #ffffff 0%,
+        #8df2ff 30%,
+        #4b9bff 64%,
+        #c09aff 100%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 9px rgba(84, 237, 255, .48));
+    }
+
+    .novaix-planet {
+      position: absolute;
+      z-index: 4;
+      top: 20px;
+      right: 18px;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ffffff, #62b7ff 60%, #a879ff);
+      box-shadow:
+        0 0 8px rgba(84, 237, 255, .8),
+        0 0 18px rgba(67, 138, 255, .45);
+    }
+
+    .novaix-brand-name {
+      margin: 0;
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(27px, 7vw, 43px);
+      font-weight: 800;
+      letter-spacing: .12em;
+      line-height: 1.3;
+      color: #f3faff;
+      text-shadow:
+        0 0 14px rgba(84, 237, 255, .17),
+        0 0 35px rgba(67, 138, 255, .12);
+    }
+
+    .novaix-brand-name span {
+      background: linear-gradient(
+        100deg,
+        #f5fdff 4%,
+        #70edff 40%,
+        #7daaff 70%,
+        #c1a0ff 100%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .novaix-studio-label {
+      margin-top: 8px;
+      font-family: "Orbitron", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .48em;
+      text-indent: .48em;
+      color: #a9c2ff;
+    }
+
+    .novaix-tagline {
+      max-width: 390px;
+      margin: 18px auto 0;
+      color: var(--novaix-muted);
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      line-height: 1.85;
+    }
+
+    .novaix-status {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      margin-top: 24px;
+      padding: 9px 13px;
+      border: 1px solid rgba(92, 220, 255, .2);
+      border-radius: 999px;
+      background: rgba(16, 38, 68, .46);
+      color: #bceeff;
+      font-family: "Inter", sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .14em;
+    }
+
+    .novaix-status-dot {
+      width: 7px;
+      height: 7px;
+      flex: 0 0 7px;
+      border-radius: 50%;
+      background: #51f5c0;
+      box-shadow: 0 0 10px rgba(81, 245, 192, .8);
+    }
+
+    /* Kartu kreator */
+    .novaix-creator-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: min(100%, 390px);
+      margin: 38px auto 0;
+      padding: 17px;
+      border: 1px solid rgba(110, 155, 255, .19);
+      border-radius: 19px;
+      background: linear-gradient(
+        130deg,
+        rgba(20, 37, 70, .74),
+        rgba(12, 17, 39, .78)
+      );
+      box-shadow:
+        0 14px 40px rgba(0, 0, 0, .18),
+        inset 0 1px rgba(255, 255, 255, .035);
+      text-align: left;
+    }
+
+    .novaix-creator-avatar {
+      display: grid;
+      flex: 0 0 46px;
+      width: 46px;
+      height: 46px;
+      place-items: center;
+      border: 1px solid rgba(100, 226, 255, .4);
+      border-radius: 15px;
+      background: linear-gradient(
+        145deg,
+        rgba(54, 139, 255, .2),
+        rgba(160, 96, 255, .18)
+      );
+      color: #b8f7ff;
+      font-family: "Orbitron", sans-serif;
+      font-size: 20px;
+      box-shadow: inset 0 0 18px rgba(75, 182, 255, .1);
+    }
+
+    .novaix-creator-copy {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .novaix-creator-caption {
+      display: block;
+      margin-bottom: 5px;
+      color: #91a4c6;
+      font-family: "Inter", sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .novaix-creator-name {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      color: #f2f8ff;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .novaix-verified {
+      display: inline-block;
+      flex: 0 0 17px;
+      width: 17px;
+      height: 17px;
+      vertical-align: middle;
+      filter: drop-shadow(0 0 5px rgba(0, 149, 246, .2));
+    }
+
+    .novaix-creator-subtitle {
+      display: block;
+      margin-top: 5px;
+      color: #91a4c6;
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+    }
+
+    .novaix-footer {
+      margin: 34px auto 0;
+      padding-top: 19px;
+      border-top: 1px solid rgba(132, 165, 226, .12);
+      color: #647490;
+      font-family: "Inter", sans-serif;
+      font-size: 10px;
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    .novaix-footer strong {
+      color: #94bfff;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    .novaix-footer .novaix-copyright {
+      margin-top: 5px;
+      color: #4f5d78;
+    }
+
+    @media (max-width: 420px) {
+      #novaix-studio {
+        padding: 49px 17px 22px;
+      }
+
+      .novaix-emblem {
+        width: 120px;
+        height: 120px;
+      }
+
+      .novaix-brand-name {
+        letter-spacing: .08em;
+      }
+
+      .novaix-studio-label {
+        letter-spacing: .35em;
+        text-indent: .35em;
+      }
+
+      .novaix-creator-card {
+        padding: 14px;
+      }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .novaix-emblem {
+        animation: novaix-float 5s ease-in-out infinite;
+      }
+
+      .novaix-orbit.orbit-one {
+        animation: novaix-orbit-spin 18s linear infinite;
+      }
+
+      .novaix-orbit.orbit-two {
+        animation: novaix-orbit-spin-reverse 24s linear infinite;
+      }
+
+      .novaix-star {
+        animation: novaix-logo-glow 3s ease-in-out infinite alternate;
+      }
+
+      @keyframes novaix-float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-4px); }
+      }
+
+      @keyframes novaix-orbit-spin {
+        from { rotate: 0deg; }
+        to { rotate: 360deg; }
+      }
+
+      @keyframes novaix-orbit-spin-reverse {
+        from { rotate: 0deg; }
+        to { rotate: -360deg; }
+      }
+
+      @keyframes novaix-logo-glow {
+        from {
+          filter: drop-shadow(0 0 7px rgba(84, 237, 255, .4));
+        }
+        to {
+          filter: drop-shadow(0 0 15px rgba(168, 121, 255, .7));
+        }
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div id="stage">
+      <video id="video" playsinline muted autoplay></video>
+      <canvas id="drawCanvas"></canvas>
+      <canvas id="fxCanvas"></canvas>
+      <div class="scanlines"></div>
+      <div class="corner tl"></div>
+      <div class="corner tr"></div>
+      <div class="corner bl"></div>
+      <div class="corner br"></div>
+
+      <div id="intro" class="panel">
+        <h1>HOLO<span>HAND</span>STUDIO</h1>
+        <p>Kendalikan hologram &amp; menggambar di udara dengan telunjuk.</p>
+
+        <button id="btnStartBig" class="btn primary big" type="button">
+          Aktifkan Kamera
+        </button>
+
+        <small>
+          Kamera hanya berjalan di HTTPS atau localhost. Semua pemrosesan
+          terjadi di perangkat Anda, tidak ada video yang diunggah.
+        </small>
+      </div>
+    </div>
+
+    <header id="hud">
+      <div class="status">
+        <span class="dot" id="camDot"></span>
+        <span id="camText">Kamera: mati</span>
+      </div>
+
+      <div class="status">
+        <span class="dot" id="handDot"></span>
+        <span id="handText">Tangan: -</span>
+      </div>
+
+      <div class="status mode" id="modeText">MODE: NORMAL</div>
+      <div class="status gesture" id="gestureText">Gesture: -</div>
+      <div class="status coord" id="coordText">x: - y: -</div>
+    </header>
+
+    <div id="toast"></div>
+
+    <nav id="controls">
+      <div class="row">
+        <button id="btnCam" class="btn primary" type="button">Aktifkan Kamera</button>
+        <button id="btnSwitch" class="btn" type="button" disabled>Ganti Kamera</button>
+        <button id="btnFull" class="btn" type="button">Fullscreen</button>
+      </div>
+
+      <div class="row">
+        <button id="btnNormal" class="btn mode-btn active" type="button">Mode Normal</button>
+        <button id="btnDraw" class="btn mode-btn" type="button">Mode Gambar</button>
+      </div>
+
+      <div class="row draw-only" id="drawTools">
+        <button id="btnPen" class="btn" type="button">Tahan untuk Gambar</button>
+        <button id="btnUndo" class="btn" type="button">Undo</button>
+        <button id="btnClear" class="btn danger" type="button">Hapus Semua</button>
+      </div>
+
+      <div class="row draw-only">
+        <div id="colors">
+          <button class="swatch active" type="button" data-color="#00f0ff" style="--c:#00f0ff" aria-label="Cyan"></button>
+          <button class="swatch" type="button" data-color="#2f7bff" style="--c:#2f7bff" aria-label="Biru"></button>
+          <button class="swatch" type="button" data-color="#39ff9e" style="--c:#39ff9e" aria-label="Hijau"></button>
+          <button class="swatch" type="button" data-color="#ff3ad8" style="--c:#ff3ad8" aria-label="Magenta"></button>
+          <button class="swatch" type="button" data-color="#ffd23a" style="--c:#ffd23a" aria-label="Kuning"></button>
+          <button class="swatch" type="button" data-color="#ffffff" style="--c:#ffffff" aria-label="Putih"></button>
+        </div>
+
+        <label class="width">
+          Tebal
+          <input id="widthRange" type="range" min="2" max="24" value="6" />
+          <span id="widthVal">6</span>
+        </label>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Identitas NOVAIX STUDIO, terpisah dari aplikasi hologram -->
+  <section id="novaix-studio" aria-label="Identitas NOVAIX STUDIO">
+    <div class="novaix-container">
+      <div class="novaix-divider" aria-hidden="true"></div>
+
+      <div class="novaix-logo-area">
+        <div class="novaix-emblem" aria-hidden="true">
+          <span class="novaix-orbit orbit-one"></span>
+          <span class="novaix-orbit orbit-two"></span>
+          <span class="novaix-orbit orbit-three"></span>
+          <span class="novaix-star">N</span>
+          <span class="novaix-planet"></span>
+        </div>
+
+        <h2 class="novaix-brand-name">
+          <span>NOVAIX</span>
+        </h2>
+
+        <div class="novaix-studio-label">STUDIO</div>
+
+        <p class="novaix-tagline">
+          A space for imagination, interaction, and futuristic creation.
+        </p>
+
+        <div class="novaix-status">
+          <span class="novaix-status-dot"></span>
+          CREATIVE TECHNOLOGY STUDIO
+        </div>
+      </div>
+
+      <div class="novaix-creator-card">
+        <div class="novaix-creator-avatar" aria-hidden="true">N</div>
+
+        <div class="novaix-creator-copy">
+          <span class="novaix-creator-caption">Created by</span>
+
+          <div class="novaix-creator-name">
+            Akbar Idhofi
+
+            <svg
+              class="novaix-verified"
+              viewBox="0 0 24 24"
+              role="img"
+              aria-label="Lencana bergaya verified"
+            >
+              <path
+                fill="#0095F6"
+                d="M12 0.8 14.4 2.5 17.3 2.2 18.7 4.8 21.4 6 21.3 9 23.2 11.1 22 13.8 22.5 16.7 19.9 18.2 18.8 20.8 15.8 20.8 13.6 23 11 21.9 8.2 22.4 6.7 19.8 4.1 18.7 4.1 15.7 2 13.5 3 10.8 2.5 8 5.1 6.5 6.2 3.9 9.2 3.9Z"
+              />
+              <path
+                d="m7.2 12.1 3.1 3.1 6.6-6.7"
+                fill="none"
+                stroke="#fff"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+          <span class="novaix-creator-subtitle">
+            Founder · NOVAIX STUDIO
+          </span>
+        </div>
+      </div>
+
+      <footer class="novaix-footer">
+        <strong>NOVAIX STUDIO</strong>
+        <div>Designed for creativity beyond dimensions.</div>
+        <div class="novaix-copyright">
+          © 2026 NOVAIX STUDIO · Created by Akbar Idhofi
+        </div>
+      </footer>
+    </div>
+  </section>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
